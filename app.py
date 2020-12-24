@@ -101,8 +101,8 @@ def start():
                      data['flipkart_url'], data['budget_price'], data['mailid'])
 
 
-# schedule.every(30).seconds.do(start)
+ schedule.every(30).seconds.do(start)
 while True:
- #   schedule.run_pending()
-  #  time.sleep(1)
+    schedule.run_pending()
+    time.sleep(1)
     start()
