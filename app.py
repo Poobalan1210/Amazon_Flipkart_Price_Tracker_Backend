@@ -92,16 +92,25 @@ def start():
 
     user = db.child("Users").get()
 
+    if user.val() is None:
+        print("sleeping")
+        time.sleep(60)
+        return
+
     for use in user.each():
+        if use is None:
+            print("None")
         data = {}
         subdb = db.child("Users").child(use.key()).get()
         for key in subdb.each():
+            if key is None:
+                time.sleep(60*60)
             data[key.key()] = key.val()
         check_prices(data['amazon_url'],
                      data['flipkart_url'], data['budget_price'], data['mailid'])
 
 
- schedule.every(30).seconds.do(start)
+schedule.every(30).seconds.do(start)
 while True:
     schedule.run_pending()
     time.sleep(1)
