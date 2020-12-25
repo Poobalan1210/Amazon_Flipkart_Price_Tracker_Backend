@@ -54,7 +54,8 @@ def check_prices(amazon_url, flipkart_url, budget_price, mail_id):
     org_flipkart_price = get_flipkart_price(flipkart_url)
     price_list = {}
     price_list['amazon_price'], price_list['flipkart_price'] = org_amazon_price, org_flipkart_price
-
+    if min(price_list.values()) is None:
+        return start()
     if min(price_list.values()) <= float(budget_price):
         if price_list['amazon_price'] < price_list['flipkart_price']:
             message = f"Amazon has the best deal with Rs.{org_amazon_price}"
