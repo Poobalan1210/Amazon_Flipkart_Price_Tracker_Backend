@@ -70,6 +70,7 @@ def check_prices(amazon_url, flipkart_url, budget_price, mail_id):
                          amazon_url+'\n'+'Flipkart link - '+flipkart_url)
                 return delete_record(mail_id)
     else:
+        return
 
 
 def delete_record(mail_id):
@@ -101,7 +102,7 @@ def start():
 
     if user.val() is None:
         print("sleeping")
-        time.sleep(60)
+        time.sleep(30)
         return
 
     for use in user.each():
@@ -117,7 +118,7 @@ def start():
                      data['flipkart_url'], data['budget_price'], data['mailid'])
 
 
-schedule.every(30).seconds.do(start)
+schedule.every(60).seconds.do(start)
 while True:
     schedule.run_pending()
     time.sleep(1)
