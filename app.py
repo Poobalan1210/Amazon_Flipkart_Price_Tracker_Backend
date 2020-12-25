@@ -28,18 +28,24 @@ db = firebase.database()
 def get_amazon_price(amazon_url):
     org_amazon_page = requests.get(amazon_url, headers=headers)
     soup = BeautifulSoup(org_amazon_page.content, 'html.parser')
-    org_amazon_price = soup.find(id="priceblock_ourprice").get_text()
-    org_amazon_price = float(org_amazon_price[1:])
-    return org_amazon_price
+    try:
+        org_amazon_price = soup.find(id="priceblock_ourprice").get_text()
+        org_amazon_price = float(org_amazon_price[1:])
+        return org_amazon_price
+    except:
+        return start()
 
 
 def get_flipkart_price(flipkart_url):
     org_flipkart_page = requests.get(flipkart_url, headers=headers)
     soup = BeautifulSoup(org_flipkart_page.content, 'html.parser')
-    org_flipkart_price = soup.find(
-        "div", {"class": "_30jeq3 _16Jk6d"}).get_text()
-    org_flipkart_price = float(org_flipkart_price[1:].replace(',', ''))
-    return org_flipkart_price
+    try:
+        org_flipkart_price = soup.find(
+            "div", {"class": "_30jeq3 _16Jk6d"}).get_text()
+        org_flipkart_price = float(org_flipkart_price[1:].replace(',', ''))
+        return org_flipkart_price
+    except:
+        return start()
 
 
 def check_prices(amazon_url, flipkart_url, budget_price, mail_id):
@@ -103,8 +109,8 @@ def start():
         data = {}
         subdb = db.child("Users").child(use.key()).get()
         for key in subdb.each():
-            if key is None:
-                time.sleep(60*60)
+            if key.val() is None:
+                time.sleep(60)
             data[key.key()] = key.val()
         check_prices(data['amazon_url'],
                      data['flipkart_url'], data['budget_price'], data['mailid'])
