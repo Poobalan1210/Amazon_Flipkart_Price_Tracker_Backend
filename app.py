@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import schedule
 import time
 import smtplib
+import gettext
 
 config = {
     "apiKey": "AIzaSyC5PuJj7QcRNIjIeI32EczKTaVa6mhuVyg",
