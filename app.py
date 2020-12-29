@@ -108,7 +108,7 @@ def start():
 
     for use in user.each():
         if use is None:
-            print("None")
+            return start()
         data = {}
         subdb = db.child("Users").child(use.key()).get()
         for key in subdb.each():
