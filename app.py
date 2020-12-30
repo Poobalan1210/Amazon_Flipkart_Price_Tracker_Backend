@@ -35,7 +35,7 @@ def get_amazon_price(amazon_url):
         org_amazon_price = amazon_element.getText()
     else:
         return None
-    print(org_amazon_price)
+    print(f"Amazon Price : {org_amazon_price}")
     org_amazon_price = float(org_amazon_price[1:])
     return org_amazon_price
 
@@ -51,7 +51,7 @@ def get_flipkart_price(flipkart_url):
         org_flipkart_price = flip_element.getText()
     else:
         return None
-    print(org_flipkart_price)
+    print(f"Flipkart Price : {org_flipkart_price}")
     org_flipkart_price = float(org_flipkart_price[1:].replace(',', ''))
     return org_flipkart_price
 
