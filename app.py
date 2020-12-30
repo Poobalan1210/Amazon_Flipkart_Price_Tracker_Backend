@@ -30,7 +30,11 @@ def get_amazon_price(amazon_url):
     org_amazon_page = requests.get(amazon_url, headers=headers)
     soup = BeautifulSoup(org_amazon_page.content, 'html.parser')
     # print(soup(soup.find(id="priceblock_ourprice")))
-    org_amazon_price = soup.find(id="priceblock_ourprice").getText()
+    amazon_element = soup.find(id="priceblock_ourprice")
+    if amazon_element:
+        org_amazon_price = amazon_element.getText()
+    else:
+        return None
     print(org_amazon_price)
     org_amazon_price = float(org_amazon_price[1:])
     return org_amazon_price
@@ -41,8 +45,12 @@ def get_flipkart_price(flipkart_url):
     soup = BeautifulSoup(org_flipkart_page.content, 'html.parser')
     # print(soup.find(
     # "div", {"class": "_30jeq3 _16Jk6d"}))
-    org_flipkart_price = soup.find(
-        "div", {"class": "_30jeq3 _16Jk6d"}).getText()
+    flip_element = soup.find(
+        "div", {"class": "_30jeq3 _16Jk6d"})
+    if flip_element:
+        org_flipkart_price = flip_element.getText()
+    else:
+        return None
     print(org_flipkart_price)
     org_flipkart_price = float(org_flipkart_price[1:].replace(',', ''))
     return org_flipkart_price
@@ -75,7 +83,7 @@ def check_prices(amazon_url, flipkart_url, budget_price, mail_id):
             else:
                 print("no price drop")
     else:
-        time.sleep(60)
+        time.sleep(5)
         return
 
 
@@ -108,7 +116,6 @@ def start():
 
     if user.val() is None:
         print("sleeping due to empty database")
-        time.sleep(30)
         return 0
 
     for use in user.each():
@@ -126,7 +133,7 @@ def start():
                      data['flipkart_url'], data['budget_price'], data['mailid'])
 
 
-schedule.every(60).seconds.do(start)
+schedule.every(5).seconds.do(start)
 while True:
     schedule.run_pending()
     time.sleep(1)
