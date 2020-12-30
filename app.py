@@ -97,7 +97,7 @@ def sendmail(mail_id, message, URL):
     server.ehlo()
     server.starttls()
     server.ehlo()
-    server.login('poobalan12100@gmail.com', 'Poobalan1210/')
+    server.login('poobalan12100@gmail.com', 'valhalla1210/')
     subject = 'Hey! Price fell down'
     body = message+'\n'+'Check the link ->' + URL
 
@@ -133,7 +133,7 @@ def start():
                      data['flipkart_url'], data['budget_price'], data['mailid'])
 
 
-schedule.every(60).seconds.do(start)
+schedule.every(5).seconds.do(start)
 while True:
     schedule.run_pending()
     time.sleep(1)
