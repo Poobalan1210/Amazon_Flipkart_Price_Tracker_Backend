@@ -97,7 +97,7 @@ def sendmail(mail_id, message, URL):
     server.ehlo()
     server.starttls()
     server.ehlo()
-    server.login('poobalan12100@gmail.com', 'Valhalla1210/')
+    server.login('poobalan12100@gmail.com', 'Valhalla2001/')
     subject = 'Hey! Price fell down'
     body = message+'\n'+'Check the link ->' + URL
 
